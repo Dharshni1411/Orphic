@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skin Tone Analyzer</title>
+    <style>
+        /* ... Your styles ... */
+            body {
+                background-image: url('orphic2.png');
+                background-size: cover;
+                background-position: center;
+                background-attachment: fixed;
+                background-color: rgba(255, 255, 255, 0.90); /* 60% transparency */
+                color: #F6E7CE;
+                font-family: Arial, sans-serif;
+            }
+    
+            .container {
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 20px;
+            }
+    
+            h1 {
+                font-size: 24px;
+                font-weight: bold;
+                margin-bottom: 20px;
+            }
+    
+            label {
+                display: block;
+                font-size: 16px;
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+    
+            input, select {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #000;
+                border-radius: 5px;
+                margin-bottom: 20px;
+            }
+    
+            select {
+                background-color: #fff;
+            }
+    
+            h2 {
+                font-size: 18px;
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+    
+            .flex {
+                display: flex;
+            }
+    
+            .w-1 {
+                width: 33.33333%;
+            }
+    
+            .rounded-lg {
+                border-radius: 8px;
+            }
+    
+            img {
+                width: 100%;
+            }
+    </style>
+</head>
+<body style="background-image: url('{{ url_for('static', filename='orphic2.png') }}');">
+    <h1>Skin Tone Analysis</h1>
+    <form method="POST" action="/analyze" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <input type="submit" value="Analyze">
+    </form>
+    {% if detected_skin_color %}
+        <h2>Detected Skin Color: {{ detected_skin_color }}</h2>
+        {% if detected_skin_color == 'Fair' %}
+            <img src="/static/fair.jpeg" alt="Fair Skin" style="max-width: 400px;">
+        {% elif detected_skin_color == 'Dusky' %}
+            <img src="/static/dusky.jpeg" alt="Dusky Skin" style="max-width: 400px;">
+        {% elif detected_skin_color == 'Dark' %}
+            <img src="/static/dark.jpeg" alt="Dark Skin" style="max-width: 400px;">
+        {% else %}
+            <!-- Handle unexpected skin color -->
+            <p>Unknown skin color</p>
+        {% endif %}
+    {% endif %}
+    <form action="/" method="get">
+        <button type="submit">Back to Main Page</button>
+    </form>
+</body>
+</html>

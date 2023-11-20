@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orphic</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url("orphic.png");
+
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            text-align: center;
+            transition: background-image 0.1s;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        h1 {
+            font-size: 36px;
+        }
+
+        .options {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .option {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .option:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+    </style>
+</head>
+<body style="background-image: url('{{ url_for('static', filename='orphic.png') }}');">
+    <div class="container">
+        <div class="options">
+            <div class="option" onclick="navigateTo('/skin')">Find my Skin Tone</div>
+            <p>--</p>
+            <div class="option" onclick="navigateTo('/body')">Find my Body Shape</div>
+            <p>--</p>
+            <div class="option" onclick="navigateTo('/suggestions')">My Recommendations</div>
+        </div>
+    </div>
+
+    <script>
+        function navigateTo(url) {
+            document.body.style.backgroundImage = "none";
+            setTimeout(function () {
+                window.location.href = url;
+            }, 500);
+        }
+    </script>
+</body>
+</html>

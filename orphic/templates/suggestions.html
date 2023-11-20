@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clothing Suggestions</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url("orphic2.png");
+
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            text-align: center;
+            transition: background-image 0.1s;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        h1 {
+            font-size: 36px;
+        }
+
+        .options {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .option {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .option:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+         /* For text description */
+         .description {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body style="background-image: url('{{ url_for('static', filename='orphic2.png') }}');">
+    <h1>Clothing Suggestions</h1>
+    <form action="/get_suggestions" method="POST">
+        <label for="body-shape">Body Shape:</label>
+        <select id="body-shape" name="body_shape">
+            <option value="Pear">Pear</option>
+            <option value="Rectangle">Rectangle</option>
+            <option value="Inverted Triangle">Inverted Triangle</option>
+            <option value="Hourglass">Hourglass</option>
+            <option value="Triangle">Triangle</option>
+        </select><br><br>
+        
+        <label for="skin-color">Skin Color:</label>
+        <select id="skin-color" name="skin_color">
+            <option value="Fair">Fair</option>
+            <option value="Dusky">Dusky</option>
+            <option value="Dark">Dark</option>
+        </select><br><br>
+        
+        <label for="gender">Gender:</label>
+        <input type="radio" id="female" name="gender" value="Female">
+        <label for="female">Female</label>
+        <input type="radio" id="male" name="gender" value="Male">
+        <label for="male">Male</label><br><br>
+        
+        <input type="submit" value="Get Suggestions">
+    </form>
+
+    <div class="image-container">
+        {% if detected_skin_color and body_shape and gender %}
+            {% if detected_skin_color == 'Fair' and body_shape == 'Pear' and gender == 'Female' %}
+                <!-- Suggestions for Fair Skin, Pear Body Shape, Female -->
+                <img src="/static/fair.jpeg" alt="Fair" style="max-width: 200px;">
+                <img src="/static/pear.png" alt="pear" style="max-width: 200px;">
+                <div class="description">
+                    <p>For fair skin tone, pear body shape, and female gender:</p>
+                    <p>Description: People with a pear body shape have narrower shoulders than their hips.</p>
+                    <p>Common traits: Weight in buttocks, lower hips, and thighs.</p>
+                </div>
+            {% endif %}
+            <!-- Add more conditions for different combinations -->
+            {% if detected_skin_color == 'Dusky' and body_shape == 'Rectangle' and gender == 'Male' %}
+                <!-- Suggestions for Dusky Skin, Rectangle Body Shape, Male -->
+                <img src="/static/dusky.jpeg" alt="Dusky" style="max-width: 200px;">
+                <img src="/static/rectangle.png" alt="rectangle" style="max-width: 200px;">
+                <div class="description">
+                    <p>For dusky skin tone, rectangle body shape, and male gender:</p>
+                    <p>Description: People with a rectangle body shape have similar hip and shoulder width.</p>
+                    <p>Common traits: Equal hip and shoulder width, lack of waist definition.</p>
+                </div>
+            {% endif %}
+            <!-- Add more conditions for different combinations -->
+            {% if detected_skin_color == 'Fair' and body_shape == 'Hourglass' and gender == 'Female' %}
+            `   <!-- Suggestions for Fair Skin, Hourglass Body Shape, Female -->
+                <img src="/static/fair.jpeg" alt="Fair" style="max-width: 200px;">
+                <img src="/static/hourglass.png" alt="Hourglass" style="max-width: 200px;">
+                <div class="description">
+                    <p>For fair skin tone, hourglass body shape, and female gender:</p>
+                    <p>Description: People with an hourglass body shape have both top and bottom halves equally broad.</p>
+                    <p>Common traits: Smaller waist than the chest and hips.</p>
+                </div>
+            {% endif %}
+
+            {% if detected_skin_color == 'Dark' and body_shape == 'Inverted Triangle' and gender == 'Male' %}
+                <!-- Suggestions for Dark Skin, Inverted Triangle Body Shape, Male -->
+                <img src="/static/dark.jpeg" alt="Dark" style="max-width: 200px;">
+                <img src="/static/inverted_triangle.png" alt="Inverted Triangle" style="max-width: 200px;">
+                <div class="description">
+                    <p>For dark skin tone, inverted triangle body shape, and male gender:</p>
+                    <p>Description: People with an inverted triangle body shape have wider shoulders than their hips.</p>
+                    <p>Common traits: Weight in the upper body and stomach, larger chests, and narrow hips.</p>
+                </div>
+            {% endif %}
+
+            {% if detected_skin_color == 'Dusky' and body_shape == 'Triangle' and gender == 'Female' %}
+                <!-- Suggestions for Dusky Skin, Triangle Body Shape, Female -->
+                <img src="/static/dusky.jpeg" alt="Dusky" style="max-width: 200px;">
+                <img src="/static/triangle.png" alt="Triangle" style="max-width: 200px;">
+                <div class="description">
+                    <p>For dusky skin tone, triangle body shape, and female gender:</p>
+                    <p>Description: People with a triangle body shape have broader hips than their shoulders.</p>
+                    <p>Common traits: Wider hips and thighs compared to the shoulders and chest.</p>
+                </div>
+            {% endif %}
+        {% else %}
+            <p>No suggestions available.</p>
+        {% endif %}
+    </div>
+    <form action="/" method="get">
+        <button type="submit">Back to Main Page</button>
+    </form>
+</body>
+</html>
